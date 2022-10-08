@@ -1,0 +1,32 @@
+.home {
+  background: #242020;
+  flex: 1 0 auto;
+  height: 100%;
+  min-height: 91.8vh;
+}
+
+.nav {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  list-style: none;
+  color: white;
+  padding-top: 20px;
+
+  li {
+    cursor: pointer;
+  }
+
+  li:hover {
+    text-decoration: underline;
+  }
+}
+
+.items {
+  display: grid;
+  padding-bottom: 4rem;
+  width: 75%;
+  margin: 4rem auto 0 auto;
+  grid-template-columns: repeat(4, 1fr);
+  grid-gap: 4rem;
+}

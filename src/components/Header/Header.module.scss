@@ -1,0 +1,93 @@
+.header{
+  background: #292828;
+  width: 100%;
+  min-height: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 4rem;
+
+  img{
+    max-width: 100%;
+    width: 60px;
+    height: 60px;
+  }
+}
+
+.search {
+  background: white;
+  padding: 10px 12px;
+  border-radius: 12px;
+
+  img {
+    width: 15px;
+    height: 15px;
+  }
+
+  input {
+    outline: none;
+    font-size: 16px;
+    border: 0;
+    padding: 0 10px;
+    width: 250px;
+    transition: all .3s ease-in-out;
+
+    &:focus {
+      width: 300px;
+    }
+  }
+}
+.account {
+  display: flex;
+  gap: 1.5rem;
+  align-items: center;
+
+  a{
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  img{
+    width: 50px;
+    height: 50px;
+  }
+
+  p {
+    color: white;
+    text-decoration: underline;
+  }
+}
+
+.login {
+  background: transparent;
+  outline: none;
+  color: white;
+  font-size: 16px;
+  font-weight: 600;
+  border: 0;
+  transition: all .3s ease-in-out;
+  cursor: pointer;
+
+  &:hover {
+    color: rgba(255, 255, 255, .8)
+  }
+}
+
+.sign {
+  background: transparent;
+  outline: none;
+  border: 3px solid white;
+  border-radius: 4px;
+  color: white;
+  padding: 8px 18px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all .3s ease-in-out;
+
+  &:hover {
+    background: white;
+    color: black
+  }
+}

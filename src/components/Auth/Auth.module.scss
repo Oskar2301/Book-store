@@ -1,0 +1,56 @@
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  width: 60%;
+  position: relative;
+
+  .input {
+    outline: none;
+    border: 2px solid lawngreen;
+    font-size: 16px;
+    color: white;
+    padding: 10px 18px;
+    width: 100%;
+    background: transparent;
+  }
+
+  button {
+    background: transparent;
+    outline: none;
+    border: 2px solid white;
+    border-radius: 4px;
+    color: white;
+    padding: 8px 18px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: all .3s ease-in-out;
+    width: 60%;
+
+    &:disabled {
+      background: gray;
+      color: black;
+      border: 2px solid gray;
+      cursor: default;
+
+    }
+
+
+    &:hover:enabled {
+      background: white;
+      color: black
+    }
+  }
+
+  .error {
+    border: 2px solid #242020;
+    color: red;
+  }
+
+  .errorMessage {
+    color: red;
+    font-size: 16px;
+    text-align: center;
+    margin: -1rem 0;
+  }
+}

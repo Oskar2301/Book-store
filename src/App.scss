@@ -1,0 +1,27 @@
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  font-family: 'Montserrat', sans-serif;
+}
+
+body, html {
+  height: 100%;
+}
+
+.skeleton {
+  background: #292A2C;
+  padding: 35px 25px;
+  box-shadow: 0px -1px 29px 0px rgba(0,0,0,0.75);
+}
+
+.notfound {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  background: #242020;
+  gap: 1rem;
+  min-height: 91.8vh;
+}
