@@ -1,18 +1,20 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { getBase } from "../../pages/Profile/FireBase/GetBase";
 
 export interface userState {
-  email: string | null;
-  token: string | null;
-  id: string | null;
+  userId: string | null;
+  userEmail: string | null;
+  favorite: any | null;
   errorLogin: boolean;
   errorAuth: boolean;
 }
+
 const user = JSON.parse(localStorage.getItem("User")!);
 
 const initialState: userState = {
-  email: user && user.email,
-  token: user && user.token,
-  id: user && user.id,
+  userId: user && user.userId,
+  userEmail: user && user.userEmail,
+  favorite: user && user.fav,
   errorAuth: false,
   errorLogin: false,
 };
@@ -22,18 +24,23 @@ export const userSlice = createSlice({
   initialState,
   reducers: {
     setUser(state, action) {
-      state.email = action.payload.email;
-      state.token = action.payload.token;
-      state.id = action.payload.id;
+      state.userId = action.payload.user.uid;
+      state.userEmail = action.payload.user.email;
+      state.favorite = action.payload.fav;
       state.errorAuth = false;
       state.errorLogin = false;
-      const user = { email: state.email, token: state.token, id: state.id };
-      localStorage.setItem("User", JSON.stringify(user));
+      localStorage.setItem(
+        "User",
+        JSON.stringify({
+          userId: state.userId,
+          userEmail: state.userEmail,
+          fav: state.favorite,
+        })
+      );
     },
     removeUser(state) {
-      state.email = null;
-      state.token = null;
-      state.id = null;
+      state.userId = null;
+      state.userEmail = null;
       localStorage.setItem("User", JSON.stringify(null));
     },
     errorLogin(state) {

@@ -14,7 +14,6 @@ export const Home = () => {
   const [isLoading, setIsLoading] = useState(true);
   const search = useSelector((state: RootState) => state.headerReducer.search);
   const items = useSelector((state: RootState) => state.homeReducer.items);
-  console.log(items);
   useEffect(() => {
     axios
       .get(

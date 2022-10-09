@@ -1,4 +1,4 @@
-import React, { ChangeEventHandler, FC, useState } from "react";
+import React, { FC, useState } from "react";
 import styles from "./Auth.module.scss";
 import { useAuth } from "../../hooks/useAuth";
 
@@ -58,16 +58,6 @@ export const Form: FC<FormProps> = ({ title, handleClick }) => {
         placeholder="Введіть пароль"
         autoComplete="new-password"
       />
-      {/*{title === 'Створити' && (*/}
-      {/*    <input*/}
-      {/*        className={`${styles.input} ${!passwordValidation ? styles.error : ""}`}*/}
-      {/*        type="password"*/}
-      {/*        value={password}*/}
-      {/*        onChange={handleChangePassword}*/}
-      {/*        placeholder="Введіть пароль"*/}
-      {/*        autoComplete="new-password"*/}
-      {/*    />*/}
-      {/*)}*/}
       {errorLogin && (
         <div className={styles.errorMessage}>Неправильний логін або пароль</div>
       )}

@@ -14,12 +14,9 @@ export const SignUp: FC = () => {
     const auth = getAuth();
     createUserWithEmailAndPassword(auth, email, password)
       .then(async ({ user }) => {
-        const accessToken = await user.getIdTokenResult();
         dispatch(
           setUser({
-            email: user.email,
-            token: accessToken.token,
-            id: user.uid,
+            user,
           })
         );
         navigate("/profile");

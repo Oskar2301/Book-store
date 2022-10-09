@@ -5,6 +5,7 @@ import { useDispatch } from "react-redux";
 import styles from "./Auth.module.scss";
 import { errorLogin, setUser } from "../../redux/slices/userSlice";
 import { useNavigate } from "react-router-dom";
+import { getBase } from "../../pages/Profile/FireBase/GetBase";
 
 export const Login: FC = () => {
   const dispatch = useDispatch();
@@ -14,12 +15,11 @@ export const Login: FC = () => {
     const auth = getAuth();
     signInWithEmailAndPassword(auth, email, password)
       .then(async ({ user }) => {
-        const accessToken = await user.getIdTokenResult();
+        const res = await getBase(user.uid!);
         dispatch(
           setUser({
-            email: user.email,
-            token: accessToken.token,
-            id: user.uid,
+            user,
+            fav: res!.fav,
           })
         );
         navigate("/profile");

@@ -7,7 +7,7 @@ import { useAuth } from "../../hooks/useAuth";
 
 export const Header: FC = () => {
   const location = useLocation();
-  const { email } = useAuth();
+  const { userEmail } = useAuth();
 
   return (
     <div className={styles.header}>
@@ -16,7 +16,7 @@ export const Header: FC = () => {
       </Link>
       {location.pathname === "/" ? <Search /> : ""}
       <div className={styles.account}>
-        {!email ? (
+        {!userEmail ? (
           <>
             <Link to="/login">
               <button className={styles.login}>Login</button>
@@ -28,7 +28,7 @@ export const Header: FC = () => {
         ) : (
           <Link to="/profile">
             <img src="/img/user.png" alt="profile" />
-            <p>{email}</p>
+            <p>{userEmail}</p>
           </Link>
         )}
       </div>

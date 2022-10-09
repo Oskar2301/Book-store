@@ -2,15 +2,14 @@ import { useSelector } from "react-redux";
 import { RootState } from "../redux/store";
 
 export function useAuth() {
-  const { email, token, id, errorAuth, errorLogin } = useSelector(
+  const { userId, userEmail, errorAuth, errorLogin } = useSelector(
     (state: RootState) => state.userReducer
   );
 
   return {
-    isAuth: !!email,
-    email,
-    token,
-    id,
+    isAuth: !!userEmail,
+    userId,
+    userEmail,
     errorAuth,
     errorLogin,
   };
