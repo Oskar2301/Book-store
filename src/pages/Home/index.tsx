@@ -8,12 +8,16 @@ import { setItems } from "../../redux/slices/homeSlice";
 import { Skeleton } from "../../components/Skeleton";
 import { NotFound } from "../../components/notFound";
 import { Navigation } from "../../components/Navigation";
+import { getBase } from "../Profile/FireBase/GetBase";
+import { useAuth } from "../../hooks/useAuth";
 
 export const Home = () => {
   const dispatch = useDispatch();
   const [isLoading, setIsLoading] = useState(true);
   const search = useSelector((state: RootState) => state.headerReducer.search);
   const items = useSelector((state: RootState) => state.homeReducer.items);
+  const { userId } = useAuth();
+
   useEffect(() => {
     axios
       .get(
@@ -29,6 +33,11 @@ export const Home = () => {
         console.log(err);
       });
   }, [search]);
+
+  const getFavoriteBooks = (id: string) => {
+    const res = JSON.parse(localStorage.getItem("User")!);
+    return res!.fav.some((e: any) => e.id === id);
+  };
 
   return (
     <div className={styles.home}>

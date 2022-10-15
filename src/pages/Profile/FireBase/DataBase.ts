@@ -32,10 +32,16 @@ export async function favUserBase(
   try {
     const res = await getBase(userId!);
     if (res!.fav.some((e: any) => e.id === book.id)) {
-      alert("already add");
-      return;
+      let bookFind = res!.fav.indexOf(
+        res!.fav.find((e: any) => e.id === book.id)
+      );
+      if (bookFind !== -1) {
+        res!.fav.splice(bookFind, 1);
+        console.log("book was delete");
+      }
+    } else {
+      res!.fav.push(book);
     }
-    res!.fav.push(book);
 
     localStorage.setItem(
       "User",

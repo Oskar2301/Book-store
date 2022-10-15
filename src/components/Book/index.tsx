@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import React, { FC, useState } from "react";
 import styles from "./Book.module.scss";
 import { Link } from "react-router-dom";
 import { useAuth } from "../../hooks/useAuth";
@@ -6,6 +6,7 @@ import { favUserBase } from "../../pages/Profile/FireBase/DataBase";
 
 export const Book: FC = (props: any) => {
   const { isAuth, userId, userEmail } = useAuth();
+  const [isFavorite, setIsFavorite] = useState(props.setFavorite);
 
   const imgUrl =
     props.volumeInfo.imageLinks && props.volumeInfo.imageLinks.smallThumbnail;
@@ -17,6 +18,7 @@ export const Book: FC = (props: any) => {
   const handleFav = () => {
     if (isAuth) {
       favUserBase(userId!, userEmail!, props);
+      setIsFavorite(true);
     } else {
       alert("error");
     }
@@ -34,7 +36,7 @@ export const Book: FC = (props: any) => {
           <button className={styles.read}>Read More</button>
         </Link>
         <button className={styles.fav} onClick={handleFav}>
-          <img src="/img/fav.png" alt="fav" />
+          <img src={isFavorite ? "/img/favOn.png" : "/img/fav.png"} alt="fav" />
         </button>
       </div>
     </div>
