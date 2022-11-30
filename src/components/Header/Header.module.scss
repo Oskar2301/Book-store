@@ -33,7 +33,7 @@
     transition: all .3s ease-in-out;
 
     &:focus {
-      width: 300px;
+      width: 20vw;
     }
   }
 }
@@ -89,5 +89,27 @@
   &:hover {
     background: white;
     color: black
+  }
+}
+
+@media (max-width: 768px) {
+  .account p {
+    display: none;
+  }
+}
+
+@media (max-width: 600px) {
+  .search input {
+    width: 150px;
+  }
+}
+
+@media (max-width: 425px) {
+  .header {
+    padding: 0;
+  }
+
+  .search input {
+    width: 150px;
   }
 }

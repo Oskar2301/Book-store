@@ -50,5 +50,6 @@ export function useBook(id: string) {
     demo,
     language,
     price,
+    book,
   };
 }

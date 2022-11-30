@@ -55,6 +55,33 @@
   padding-bottom: 4rem;
   width: 75%;
   margin: 4rem auto 0 auto;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   grid-gap: 4rem;
+}
+
+.empty{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+
+  img {
+    width: 250px;
+  }
+
+  p {
+    color: white;
+    font-size: 24px;
+    width: 450px;
+    text-align: center;
+    line-height: 28px;
+    margin-top: 3rem;
+  }
+}
+
+
+@media (max-width: 425px) {
+  .items {
+    width: 100%;
+  }
 }

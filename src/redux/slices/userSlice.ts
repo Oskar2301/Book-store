@@ -1,5 +1,4 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { getBase } from "../../pages/Profile/FireBase/GetBase";
 
 export interface userState {
   userId: string | null;
@@ -41,6 +40,7 @@ export const userSlice = createSlice({
     removeUser(state) {
       state.userId = null;
       state.userEmail = null;
+      state.favorite = null;
       localStorage.setItem("User", JSON.stringify(null));
     },
     errorLogin(state) {

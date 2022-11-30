@@ -20,6 +20,7 @@ export const Login: FC = () => {
           setUser({
             user,
             fav: res!.fav,
+            orders: res!.orders,
           })
         );
         navigate("/profile");

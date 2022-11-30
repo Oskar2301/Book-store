@@ -6,7 +6,8 @@ import { createUserBase } from "./FireBase/DataBase";
 import { getBase } from "./FireBase/GetBase";
 import styles from "./Profile.module.scss";
 import { removeUser } from "../../redux/slices/userSlice";
-import { Book } from "../../components/Book";
+import { Favorite } from "./components/favorite/Favorite";
+import { Order } from "./components/order/Order";
 
 export const Profile = () => {
   const { isAuth, userId, userEmail } = useAuth();
@@ -14,6 +15,7 @@ export const Profile = () => {
   const location = useLocation();
   const [category, setCategory] = useState(true);
   const [favorite, setFavorite] = useState([]);
+  const [orders, setOrders] = useState([]);
   const favoriteChange = JSON.parse(localStorage.getItem("User")!);
 
   const getFavoriteBooks = async () => {
@@ -21,12 +23,18 @@ export const Profile = () => {
     setFavorite(res?.fav);
   };
 
+  const getOrdersBooks = async () => {
+    const res = await getBase(userId!);
+    setOrders(res?.orders);
+  };
+
   useEffect(() => {
     if (isAuth) {
       createUserBase(userId!, userEmail!);
+      getFavoriteBooks();
+      getOrdersBooks();
     }
-    getFavoriteBooks();
-  }, [favoriteChange.fav]);
+  }, [favoriteChange.fav, favoriteChange.orders]);
 
   return isAuth ? (
     <div className={styles.profile}>
@@ -52,13 +60,17 @@ export const Profile = () => {
         <hr />
       </div>
       {category ? (
-        <div>hi</div>
+        <Order
+          orders={orders}
+          classesOrder={styles.items}
+          classesOrderEmpty={styles.empty}
+        />
       ) : (
-        <div className={styles.items}>
-          {favorite.map((item: any, index: number) => {
-            return <Book key={index} {...item} setFavorite={true} />;
-          })}
-        </div>
+        <Favorite
+          favorite={favorite}
+          classesFav={styles.items}
+          classesFavEmpty={styles.empty}
+        />
       )}
     </div>
   ) : (

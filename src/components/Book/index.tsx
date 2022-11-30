@@ -1,4 +1,4 @@
-import React, { FC, useState } from "react";
+import React, { FC, useEffect, useState } from "react";
 import styles from "./Book.module.scss";
 import { Link } from "react-router-dom";
 import { useAuth } from "../../hooks/useAuth";
@@ -24,6 +24,18 @@ export const Book: FC = (props: any) => {
     }
   };
 
+  useEffect(() => {
+    if (
+      JSON.parse(localStorage.getItem("User")!) &&
+      JSON.parse(localStorage.getItem("User")!).fav &&
+      JSON.parse(localStorage.getItem("User")!).fav.some(
+        (book: any) => book.id === props.id
+      )
+    ) {
+      setIsFavorite(true);
+    }
+  }, []);
+
   return (
     <div className={styles.book}>
       <img src={imgUrl ? imgUrl : "/img/notFound.jpg"} alt="book" />
@@ -35,9 +47,18 @@ export const Book: FC = (props: any) => {
         <Link to={`/${props.id}`}>
           <button className={styles.read}>Read More</button>
         </Link>
-        <button className={styles.fav} onClick={handleFav}>
-          <img src={isFavorite ? "/img/favOn.png" : "/img/fav.png"} alt="fav" />
-        </button>
+        {props.setLoading ? (
+          <button className={styles.fav}>
+            <img src="/img/order-complete.png" alt="fav" />
+          </button>
+        ) : (
+          <button className={styles.fav} onClick={handleFav}>
+            <img
+              src={isFavorite ? "/img/favOn.png" : "/img/fav.png"}
+              alt="fav"
+            />
+          </button>
+        )}
       </div>
     </div>
   );

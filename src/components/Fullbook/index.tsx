@@ -3,6 +3,8 @@ import { useParams } from "react-router-dom";
 import styles from "./Fullbook.module.scss";
 import { WindowAlert } from "../WindowAlert";
 import { useBook } from "../../hooks/useBook";
+import { orderUserBase } from "../../pages/Profile/FireBase/DataBase";
+import { useAuth } from "../../hooks/useAuth";
 
 export const FullBook: FC = () => {
   const { id } = useParams();
@@ -17,14 +19,34 @@ export const FullBook: FC = () => {
     demo,
     language,
     price,
+    book,
   } = useBook(id!);
   const [alertWindow, setAlertWindow] = useState(false);
+  const { isAuth, userId, userEmail } = useAuth();
 
   const handleClick = () => {
+    if (userId && userEmail) orderUserBase(userId, userEmail, book);
     setAlertWindow(true);
     setTimeout(() => {
       setAlertWindow(false);
     }, 2000);
+  };
+
+  const handleCheckOrder = () => {
+    if (
+      JSON.parse(localStorage.getItem("User")!) &&
+      JSON.parse(localStorage.getItem("User")!).orders
+    ) {
+      console.log(
+        JSON.parse(localStorage.getItem("User")!).orders.some(
+          (book: any) => book.id === id
+        )
+      );
+      return JSON.parse(localStorage.getItem("User")!).orders.some(
+        (book: any) => book.id === id
+      );
+    }
+    return false;
   };
 
   return (
@@ -67,13 +89,27 @@ export const FullBook: FC = () => {
           </div>
         </div>
         {price !== "Невідомо" ? (
-          <div className={styles.order}>
-            <div>
-              <h3>Вартість:</h3>
-              <p>{price}</p>
+          isAuth ? (
+            handleCheckOrder() ? (
+              <div className={styles.noAvailable}>
+                <h3>Ви вже замовили книгу</h3>
+                <button>Недосяжна</button>
+              </div>
+            ) : (
+              <div className={styles.order}>
+                <div>
+                  <h3>Вартість:</h3>
+                  <p>{price}</p>
+                </div>
+                <button onClick={handleClick}>Замовити</button>
+              </div>
+            )
+          ) : (
+            <div className={styles.noAvailable}>
+              <h3>Потрібно ввійти в аккаунт</h3>
+              <button>Недосяжна</button>
             </div>
-            <button onClick={handleClick}>Замовити</button>
-          </div>
+          )
         ) : (
           <div className={styles.noAvailable}>
             <h3>Немає в наявності</h3>

@@ -5,19 +5,26 @@ import { getBase } from "./GetBase";
 export async function createUserBase(userId: string, userEmail: string) {
   try {
     const res = await getBase(userId!);
+
     let favorite: any[] = [];
+    let orders: any[] = [];
+
     if (res) {
       favorite = res.fav;
-    } else {
-      favorite = [];
+      orders = res.orders;
     }
-    localStorage.setItem(
-      "User",
-      JSON.stringify({ userId, userEmail, fav: favorite })
-    );
+
+    if (!res) {
+      localStorage.setItem(
+        "User",
+        JSON.stringify({ userId, userEmail, fav: favorite, orders: orders })
+      );
+    }
+
     await setDoc(doc(db, "users", userId), {
       email: userEmail,
       fav: favorite,
+      orders: orders,
     });
   } catch (e) {
     console.error(e);
@@ -45,12 +52,38 @@ export async function favUserBase(
 
     localStorage.setItem(
       "User",
-      JSON.stringify({ userId, userEmail, fav: res!.fav })
+      JSON.stringify({ userId, userEmail, fav: res!.fav, orders: res!.orders })
     );
 
     await setDoc(doc(db, "users", userId), {
       email: userEmail,
       fav: res!.fav,
+      orders: res!.orders,
+    });
+  } catch (e) {
+    console.error(e);
+  }
+}
+
+export async function orderUserBase(
+  userId: string,
+  userEmail: string,
+  book: any
+) {
+  try {
+    const res = await getBase(userId!);
+
+    res!.orders.push(book);
+
+    localStorage.setItem(
+      "User",
+      JSON.stringify({ userId, userEmail, fav: res!.fav, orders: res!.orders })
+    );
+
+    await setDoc(doc(db, "users", userId), {
+      email: userEmail,
+      fav: res!.fav,
+      orders: res!.orders,
     });
   } catch (e) {
     console.error(e);
