@@ -20,10 +20,11 @@ export const FullBook: FC = () => {
     language,
     price,
     book,
+    tags,
   } = useBook(id!);
   const [alertWindow, setAlertWindow] = useState(false);
   const { isAuth, userId, userEmail } = useAuth();
-
+  console.log(tags);
   const handleClick = () => {
     if (userId && userEmail) orderUserBase(userId, userEmail, book);
     setAlertWindow(true);
@@ -87,6 +88,12 @@ export const FullBook: FC = () => {
               Ціна:<span>{price}</span>
             </p>
           </div>
+        </div>
+        <div className={styles.tags}>
+          Теги:
+          {tags.map((tag: any) => (
+            <div className={styles.tag}>#{tag}</div>
+          ))}
         </div>
         {price !== "Невідомо" ? (
           isAuth ? (

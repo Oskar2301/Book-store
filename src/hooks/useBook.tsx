@@ -39,6 +39,8 @@ export function useBook(id: string) {
       ? `${book.saleInfo.listPrice.amount} ${book.saleInfo.listPrice.currencyCode}`
       : "Невідомо";
 
+  const tags = book.tags;
+
   return {
     title,
     imgUrl,
@@ -51,5 +53,6 @@ export function useBook(id: string) {
     language,
     price,
     book,
+    tags,
   };
 }
